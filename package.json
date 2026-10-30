@@ -1,0 +1,61 @@
+{
+  "name": "fieldfind-scope",
+  "description": "Filter & Search — free multi-column text/numeric search; Microsoft-licensed Date Filter Pro. Licensing integration test pending Service ID.",
+  "version": "0.6.2",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "scripts": {
+    "start": "pbiviz start",
+    "pbiviz": "pbiviz",
+    "test": "node scripts/test-core.mjs",
+    "typecheck": "tsc --noEmit",
+    "package": "npm run check:licensing && npm run check:metadata && npm run check:installed && npm run check:certification && npm run eslint && npm run typecheck && npm test && npm audit --audit-level=moderate && node scripts/package-sdk.mjs",
+    "check:metadata": "node scripts/check-metadata.mjs",
+    "configure": "node scripts/configure.mjs",
+    "preview:build": "python scripts/make-search-date-harness.py",
+    "test:browser": "python scripts/test-ui.py",
+    "build:local": "node scripts/build-local.mjs",
+    "check:syntax": "node scripts/check-syntax.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "check:source": "node scripts/check-metadata.mjs --source-only",
+    "check:licensing": "node scripts/check-licensing.mjs",
+    "configure:licensing": "node scripts/configure-licensing.mjs",
+    "package:sdk:test": "node scripts/check-licensing.mjs --allow-unconfigured && npm run check:metadata && npm run check:installed && npm run eslint && npm run typecheck && npm test && node scripts/package-sdk.mjs --test-build",
+    "test:licensing:browser": "python scripts/test-licensing-browser.py",
+    "eslint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+    "check:security": "node scripts/cert-security.cjs",
+    "upgrade:api": "node scripts/upgrade-api.mjs",
+    "check:certification": "node scripts/check-certification.mjs",
+    "export:certification": "node scripts/export-certification.mjs",
+    "check:connected": "node scripts/collect-certification.mjs --install",
+    "check:offline": "node scripts/collect-certification.mjs --offline",
+    "test:release:smoke": "python scripts/test-release-smoke.py",
+    "check:installed": "node scripts/check-installed-toolchain.mjs"
+  },
+  "dependencies": {
+    "powerbi-models": "1.12.6",
+    "powerbi-visuals-api": "5.11.1",
+    "powerbi-visuals-utils-formattingmodel": "5.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.20",
+    "@types/react-dom": "18.2.7",
+    "typescript": "5.9.3",
+    "powerbi-visuals-tools": "7.2.1",
+    "eslint": "10.12.0",
+    "eslint-plugin-powerbi-visuals": "1.1.1",
+    "@typescript-eslint/parser": "8.71.1",
+    "globals": "17.13.0",
+    "jszip": "3.10.2"
+  },
+  "overrides": {
+    "sockjs@0.3.24": {
+      "uuid": "11.1.1"
+    }
+  }
+}

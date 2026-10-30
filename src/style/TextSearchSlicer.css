@@ -1,0 +1,111 @@
+/* FieldFind 0.5.4: two-row search (design C). Every colour and size comes from
+   CSS variables set by lookTokens(): report theme by default, Format pane when set. */
+.ff-root{box-sizing:border-box;position:relative;padding:2px;overflow:hidden;background:transparent;font-family:var(--ff-font);font-size:var(--ff-size);line-height:1.25;color:var(--ff-fg);}
+.ff-root *,.ff-root *::before,.ff-root *::after{box-sizing:border-box;}
+.ff-root button,.ff-root input{font-family:inherit;}
+.ff-root button{cursor:pointer;}
+.ff-root button:disabled{cursor:default;opacity:.45;}
+.ff-root svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block;flex:0 0 auto;}
+
+.ff-card{display:flex;flex-direction:column;width:100%;min-width:0;background:var(--ff-bg);border:var(--ff-bw) solid var(--ff-border);border-radius:var(--ff-radius);box-shadow:var(--ff-shadow);overflow:hidden;transition:border-color .12s;}
+.ff-card:focus-within{border-color:var(--ff-focus);}
+.ff-card.ff-noborder:focus-within{outline:1px solid var(--ff-focus);outline-offset:-1px;}
+.ff-row{display:flex;align-items:center;gap:2px;width:100%;min-width:0;padding:0 4px;}
+.ff-row-search{height:calc(var(--ff-row1) - 2 * var(--ff-bw));}
+.ff-row-options{height:var(--ff-row2);border-top:1px solid var(--ff-divider);padding:0 4px 0 6px;}
+.ff-one .ff-row-options{height:calc(var(--ff-row1) - 2 * var(--ff-bw));border-top:0;padding-left:4px;}
+
+.ff-query{flex:1 1 auto;width:0;min-width:0;height:100%;border:0;outline:0;margin:0;padding:0 6px;background:transparent;color:var(--ff-fg);font:inherit;font-size:var(--ff-size);}
+.ff-query::placeholder{color:var(--ff-muted);opacity:1;}
+.ff-query::-webkit-search-cancel-button,.ff-query::-webkit-search-decoration{display:none;}
+
+.ff-iconbtn{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:calc(var(--ff-row1) - 2 * var(--ff-bw) - 8px);height:calc(var(--ff-row1) - 2 * var(--ff-bw) - 8px);min-width:22px;min-height:22px;max-width:30px;max-height:30px;padding:0;border:0;border-radius:var(--ff-radius-in);background:transparent;color:var(--ff-icon);}
+.ff-row-options .ff-iconbtn{width:calc(var(--ff-row2) - 6px);height:calc(var(--ff-row2) - 6px);}
+.ff-one .ff-row-options .ff-iconbtn{width:calc(var(--ff-row1) - 2 * var(--ff-bw) - 8px);height:calc(var(--ff-row1) - 2 * var(--ff-bw) - 8px);}
+.ff-iconbtn:hover:not(:disabled){background:var(--ff-soft);}
+.ff-clear-text,.ff-back,.ff-more,.ff-info{color:var(--ff-muted);}
+.ff-clear-text svg{width:14px;height:14px;}
+.ff-problem{color:var(--ff-error);}
+.ff-sep{flex:0 0 auto;width:1px;height:16px;margin:0 4px;background:var(--ff-divider);}
+
+.ff-scroll{display:flex;align-items:center;gap:2px;flex:1 1 auto;min-width:0;height:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+.ff-scroll::-webkit-scrollbar{display:none;}
+.ff-fade-r{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);}
+.ff-fade-l{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px);mask-image:linear-gradient(to right,transparent,#000 28px);}
+.ff-fade-l.ff-fade-r{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent);}
+
+/* Chips: the current value of each option; a click opens its choices in the same row. */
+.ff-chip,.ff-choice,.ff-toggle,.ff-switch,.ff-link{display:inline-flex;align-items:center;gap:5px;flex:0 0 auto;height:calc(var(--ff-row2) - 8px);min-height:22px;padding:0 8px;border:0;border-radius:var(--ff-radius-in);background:transparent;color:var(--ff-fg);font:inherit;font-size:var(--ff-size-sm);white-space:nowrap;}
+.ff-one .ff-row-options .ff-chip,.ff-one .ff-row-options .ff-choice,.ff-one .ff-row-options .ff-toggle,.ff-one .ff-row-options .ff-switch,.ff-one .ff-row-options .ff-link{height:calc(var(--ff-row1) - 2 * var(--ff-bw) - 10px);}
+.ff-chip svg,.ff-choice svg,.ff-toggle svg,.ff-link svg{width:14px;height:14px;}
+.ff-chip .ff-chev{width:12px;height:12px;color:var(--ff-muted);}
+.ff-chip:hover:not(:disabled),.ff-choice:hover:not(:disabled),.ff-toggle:hover:not(:disabled),.ff-switch:hover:not(:disabled),.ff-link:hover:not(:disabled){background:var(--ff-soft);}
+.ff-changed{color:var(--ff-accent-text);font-weight:600;}
+.ff-chip-strong{font-weight:600;}
+.ff-dot{opacity:.6;}
+.ff-chip-pair{display:inline-flex;align-items:center;flex:0 0 auto;border-radius:var(--ff-radius-in);}
+.ff-chip-active{background:var(--ff-accent-soft);color:var(--ff-accent-text);}
+.ff-chip-active .ff-chip{color:inherit;padding-right:3px;}
+.ff-chip-active .ff-chip:hover:not(:disabled){background:transparent;text-decoration:underline;text-underline-offset:2px;}
+.ff-chip-x{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:20px;height:20px;margin-right:2px;padding:0;border:0;border-radius:var(--ff-radius-in);background:transparent;color:inherit;}
+.ff-chip-x svg{width:12px;height:12px;stroke-width:2;}
+.ff-chip-x:hover:not(:disabled){background:var(--ff-soft);}
+.ff-row-search .ff-chip-pair{margin:0 2px;}
+.ff-row-search .ff-chip{height:calc(var(--ff-row1) - 2 * var(--ff-bw) - 10px);font-size:var(--ff-size-sm);}
+
+.ff-status-area{display:flex;align-items:center;gap:2px;flex:0 1 auto;min-width:0;max-width:45%;margin-left:6px;}
+.ff-status{display:inline-flex;align-items:center;gap:4px;min-width:0;height:calc(var(--ff-row2) - 8px);padding:0 4px;border:0;border-radius:var(--ff-radius-in);background:transparent;color:var(--ff-muted);font:inherit;font-size:var(--ff-size-sm);white-space:nowrap;overflow:hidden;}
+.ff-status>span{overflow:hidden;text-overflow:ellipsis;}
+.ff-status svg{width:14px;height:14px;}
+button.ff-status:hover{background:var(--ff-soft);}
+.ff-status-error{color:var(--ff-error);}
+.ff-status-action{color:var(--ff-fg);}
+.ff-status-action b{color:var(--ff-accent-text);font-weight:600;}
+.ff-strip-error{flex:0 1 auto;max-width:40%;margin-left:4px;}
+.ff-refresh{color:var(--ff-accent-text);}
+.ff-count{flex:0 0 auto;padding:0 4px;color:var(--ff-muted);font-size:var(--ff-size-sm);white-space:nowrap;}
+
+/* Choice strips */
+.ff-strip-label{display:inline-flex;align-items:center;gap:5px;flex:0 0 auto;padding:0 6px 0 2px;color:var(--ff-muted);font-size:var(--ff-size-sm);white-space:nowrap;}
+.ff-strip-label.ff-chip-strong{color:var(--ff-fg);}
+.ff-strip-label svg{width:14px;height:14px;color:var(--ff-icon);}
+.ff-choice[aria-pressed=true]{background:var(--ff-accent-soft);color:var(--ff-accent-text);font-weight:600;}
+.ff-toggle .ff-box{width:15px;height:15px;color:var(--ff-muted);}
+.ff-toggle[aria-pressed=true] .ff-box-on{fill:var(--ff-accent);stroke:var(--ff-accent);}
+.ff-toggle[aria-pressed=true] .ff-box-tick{stroke:var(--ff-on-accent);stroke-width:2.2;}
+.ff-toggle[aria-pressed=true]:disabled{opacity:.8;}
+.ff-switch{gap:6px;}
+.ff-track{position:relative;flex:0 0 auto;width:28px;height:16px;border-radius:8px;background:var(--ff-divider);transition:background .12s;}
+.ff-knob{position:absolute;left:2px;top:2px;width:12px;height:12px;border-radius:6px;background:var(--ff-bg);box-shadow:0 1px 2px #0000004D;transition:left .12s;}
+.ff-switch[aria-checked=true] .ff-track{background:var(--ff-accent);}
+.ff-switch[aria-checked=true] .ff-knob{left:14px;}
+.ff-link{color:var(--ff-accent-text);}
+.ff-remove{color:var(--ff-muted);}
+.ff-apply{flex:0 0 auto;height:calc(var(--ff-row2) - 8px);min-height:22px;margin-left:6px;padding:0 12px;border:0;border-radius:var(--ff-radius-in);background:var(--ff-accent);color:var(--ff-on-accent);font:inherit;font-size:var(--ff-size-sm);font-weight:600;white-space:nowrap;}
+.ff-one .ff-apply{height:calc(var(--ff-row1) - 2 * var(--ff-bw) - 10px);}
+.ff-notice{display:inline-flex;align-items:center;gap:6px;padding:0 4px;color:var(--ff-fg);font-size:var(--ff-size-sm);white-space:nowrap;}
+.ff-notice svg{width:14px;height:14px;color:var(--ff-muted);}
+.ff-notice-error,.ff-notice-error svg{color:var(--ff-error);}
+
+/* Date editor: dates with rows, stepped with ‹ › or typed. */
+.ff-step{display:inline-flex;align-items:center;flex:0 0 auto;height:calc(var(--ff-row2) - 8px);min-height:22px;border:1px solid var(--ff-border);border-radius:var(--ff-radius-in);background:var(--ff-bg);}
+.ff-one .ff-step{height:calc(var(--ff-row1) - 2 * var(--ff-bw) - 10px);}
+.ff-step:focus-within{border-color:var(--ff-focus);box-shadow:0 0 0 1px var(--ff-focus);}
+.ff-step.ff-invalid{border-color:var(--ff-error);}
+.ff-step-btn{display:inline-flex;align-items:center;justify-content:center;width:20px;height:100%;padding:0;border:0;background:transparent;color:var(--ff-muted);}
+.ff-step-btn:hover:not(:disabled){color:var(--ff-fg);}
+.ff-step-btn svg{width:13px;height:13px;}
+.ff-step-input{width:96px;height:100%;padding:0;border:0;outline:0;background:transparent;color:var(--ff-fg);font:inherit;font-size:var(--ff-size-sm);text-align:center;}
+.ff-step-input::placeholder{color:var(--ff-muted);}
+.ff-dash{flex:0 0 auto;padding:0 3px;color:var(--ff-muted);}
+.ff-field-error{flex:0 0 auto;padding:0 6px;color:var(--ff-error);font-size:var(--ff-size-sm);white-space:nowrap;}
+
+/* One focus indicator per control: buttons get a ring; the date field and the
+   search box show focus on their own frame (no second rectangle inside). */
+.ff-root button:focus-visible{outline:2px solid var(--ff-focus);outline-offset:-2px;}
+.ff-query:focus-visible,.ff-step-input:focus-visible{outline:0;}
+.ff-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
+
+/* High contrast: no tints; selection shown with an outline. */
+.ff-hc .ff-choice[aria-pressed=true],.ff-hc .ff-chip-active{outline:1px solid var(--ff-accent);outline-offset:-1px;}
+@media (forced-colors:active){.ff-card{border-color:CanvasText;}.ff-iconbtn,.ff-chip,.ff-choice,.ff-toggle,.ff-switch,.ff-link{color:ButtonText;}.ff-choice[aria-pressed=true],.ff-chip-active{outline:1px solid Highlight;}}

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": ".core-build",
+    "rootDir": "src",
+    "types": []
+  },
+  "include": [
+    "src/core/**/*.ts",
+    "src/powerbi/fieldResolver.ts",
+    "src/powerbi/dataReader.ts",
+    "src/powerbi/filterObservation.ts",
+    "src/licensing/config.ts",
+    "src/licensing/messages.ts"
+  ]
+}

@@ -1,0 +1,357 @@
+[
+  {
+    "id": "C01",
+    "name": "OR across ArticleName and Supplier",
+    "text": "strala",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R001",
+      "R002",
+      "R003",
+      "R008"
+    ]
+  },
+  {
+    "id": "C02",
+    "name": "Disabled Supplier must not contribute",
+    "text": "strala",
+    "fields": [
+      "ArticleName"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R001",
+      "R002",
+      "R008"
+    ]
+  },
+  {
+    "id": "C03",
+    "name": "Accent-sensitive variant",
+    "text": "strala",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": false,
+    "date": null,
+    "expectedRecordKeys": [
+      "R008"
+    ]
+  },
+  {
+    "id": "C04",
+    "name": "BILLY can match either column",
+    "text": "billy",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R004",
+      "R005",
+      "R006"
+    ]
+  },
+  {
+    "id": "C05",
+    "name": "Every field on the same row",
+    "text": "billy",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "all",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R006"
+    ]
+  },
+  {
+    "id": "C06",
+    "name": "Exact whole-cell BILLY",
+    "text": "billy",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "exact",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R006"
+    ]
+  },
+  {
+    "id": "C07",
+    "name": "Starts with STRALA",
+    "text": "strala",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "startsWith",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R001",
+      "R002",
+      "R003",
+      "R008"
+    ]
+  },
+  {
+    "id": "C08",
+    "name": "Preserved leading zeros",
+    "text": "00123",
+    "fields": [
+      "Code"
+    ],
+    "mode": "exact",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R001",
+      "R002"
+    ]
+  },
+  {
+    "id": "C09",
+    "name": "Numeric article search",
+    "text": "10001001",
+    "fields": [
+      "ArticleNo"
+    ],
+    "mode": "exact",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R001",
+      "R002"
+    ]
+  },
+  {
+    "id": "C10",
+    "name": "Negative decimal numeric search",
+    "text": "-2.5",
+    "fields": [
+      "UnitPrice"
+    ],
+    "mode": "exact",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R005"
+    ]
+  },
+  {
+    "id": "C11",
+    "name": "Specific day includes 23:59:59",
+    "text": "",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": {
+      "field": "DeliveryDate",
+      "condition": "on",
+      "from": "2026-10-08"
+    },
+    "expectedRecordKeys": [
+      "R001",
+      "R003",
+      "R009"
+    ]
+  },
+  {
+    "id": "C12",
+    "name": "Between includes both boundaries",
+    "text": "",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": {
+      "field": "DeliveryDate",
+      "condition": "between",
+      "from": "2026-10-08",
+      "to": "2026-10-31"
+    },
+    "expectedRecordKeys": [
+      "R001",
+      "R002",
+      "R003",
+      "R004",
+      "R005",
+      "R007",
+      "R009"
+    ]
+  },
+  {
+    "id": "C13",
+    "name": "Text AND date apply to the same row",
+    "text": "strala",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": {
+      "field": "DeliveryDate",
+      "condition": "on",
+      "from": "2026-10-08"
+    },
+    "expectedRecordKeys": [
+      "R001",
+      "R003"
+    ]
+  },
+  {
+    "id": "C14",
+    "name": "Blank delivery dates",
+    "text": "",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": {
+      "field": "DeliveryDate",
+      "condition": "blank"
+    },
+    "expectedRecordKeys": [
+      "R006",
+      "R012"
+    ]
+  },
+  {
+    "id": "C15",
+    "name": "On or before",
+    "text": "",
+    "fields": [
+      "ArticleName"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": {
+      "field": "DeliveryDate",
+      "condition": "onOrBefore",
+      "from": "2026-10-08"
+    },
+    "expectedRecordKeys": [
+      "R001",
+      "R003",
+      "R009",
+      "R010"
+    ]
+  },
+  {
+    "id": "C16",
+    "name": "On or after",
+    "text": "",
+    "fields": [
+      "ArticleName"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": {
+      "field": "DeliveryDate",
+      "condition": "onOrAfter",
+      "from": "2026-10-31"
+    },
+    "expectedRecordKeys": [
+      "R005",
+      "R007",
+      "R008",
+      "R011"
+    ]
+  },
+  {
+    "id": "C17",
+    "name": "Leap day",
+    "text": "",
+    "fields": [
+      "ArticleName"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": {
+      "field": "DeliveryDate",
+      "condition": "on",
+      "from": "2028-02-29"
+    },
+    "expectedRecordKeys": [
+      "R011"
+    ]
+  },
+  {
+    "id": "C18",
+    "name": "HFB 02 context plus BILLY",
+    "text": "billy",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": [
+      "R004",
+      "R006"
+    ],
+    "context": {
+      "HFB": "02"
+    }
+  },
+  {
+    "id": "C19",
+    "name": "No matches emits contradiction",
+    "text": "no such product",
+    "fields": [
+      "ArticleName",
+      "Supplier"
+    ],
+    "mode": "contains",
+    "logic": "any",
+    "ignoreAccents": true,
+    "date": null,
+    "expectedRecordKeys": []
+  }
+]
