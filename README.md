@@ -1,53 +1,42 @@
-> **Latest status — 31 October 2026:** the real Service ID is now configured and the full candidate build passed (608 tests, zero audit findings, 22 simulated browser checks). Real Desktop/Service and licence assignment testing are deferred. See [licensing configuration evidence](docs/LICENSING_CONFIGURED_0.6.2.md). Earlier dated status below is historical.
+# Filter & Search – Multiple Columns & Dates
 
-> **Current status — 31 October 2026:** see [validated 0.6.2 build repairs](docs/BUILD_REPAIR_0.6.2.md). Older status statements below are historical. GitHub access is configured; source is present; installed checks and engineering packaging now pass. Release licensing and real-host validation remain outstanding.
+Version **0.6.2** (visual 0.6.2.0). Publisher: Veilig Starten.
 
-# Source candidate 0.6.2 — not a release
+Free multi-column text/numeric search with Microsoft-licensed Date Filter Pro. The real Service ID is configured. The product remains a **candidate awaiting Power BI Desktop/Service and real-license acceptance**, not a Microsoft-certified release.
 
-Current work: [Toolchain changes and evidence](docs/TOOLCHAIN_0.6.2.md) · [Build commands](docs/BUILD_KIT_README.md) · [GitHub handoff](docs/GITHUB_SETUP.md).
+## Current validation
 
-No new `.pbiviz` was produced in this source-only pass. Earlier release notes below are historical; current blockers and version status are in the linked documents.
+The full configured candidate was built locally. GitHub engineering validation [run 41242898447](https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates/actions/runs/41242898447) passed at commit `33bf297ef2162df8565db1471183a8884f8c849b`: fresh installation, source inventory, lint, typechecking, 608 tests, full audit with zero vulnerabilities, SDK packaging and 22 simulated browser checks. Later metadata/documentation changes require their own current build evidence; inspect the latest PR checks.
 
----
+[Draft PR #1](https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates/pull/1) remains open and unmerged. No Marketplace offer or certification submission has been published by this preparation work.
 
-# Certification preparation — revision 2
+## Build and test
 
-Product/runtime version remains **0.6.1**. No new .pbiviz was created for this preparation pass. All application source, CSS, capabilities, licence configuration, icon and dependency versions are unchanged. Added: manual cloud diagnostics/release workflow, stronger build checks, exact-result synthetic fixtures, SDK-bundle smoke runner, and a host-validation checklist.
-
-Read **docs/BUILD_KIT_README.md** first. Current API/security/licensing blockers remain; do not submit the previous test package.
-
----
-
-# Filter & Search — Multiple Columns & Dates
-
-**Version 0.6.1 — certification-hardening work in progress. Not for AppSource submission yet.**
-
-Publisher: Veilig Starten. Owner: Mohamed Mohsine. Based on DataBrothers Text Search Slicer with Microsoft Text Filter as a reference. Existing visual GUID and report property contracts are retained.
-
-Free text/numeric multi-column search; Date Filter Pro uses Microsoft's native per-user licensing. The Service ID is deliberately empty until the real Partner Center plan ID is provided. This is a development source folder, not an already-certified visual.
-
-Read `docs/HARDENING_0.6.1.md` for what changed, what is verified and what remains blocked. Read `docs/CERTIFICATION_NEXT_STEPS.md` before attempting a submission.
-
-## Build commands after the documented prerequisites are resolved
+Use the Node version in `.nvmrc` and the locked dependencies. On a clean source checkout, verify the inventory before installing:
 
 ```sh
-npm run upgrade:api
+node scripts/verify-source.mjs
 npm ci
-npm run eslint
-npm run typecheck
-npm test
-npm run check:security
-npm audit
-npm run configure:licensing -- YOUR_ACTUAL_SERVICE_ID
 npm run package
+python3 scripts/test-release-smoke.py
 ```
 
-The full release pipeline stops on missing Service ID, the older API and the known dependency issues. Do not bypass those checks. The separately supplied hardening test `.pbiviz` is an offline application rebuild, not a successful run of this SDK command.
+The smoke runner needs Python Playwright and its Chromium browser. It simulates Power BI and licensing; it does not validate a real Microsoft entitlement. See [build instructions](docs/BUILD_KIT_README.md).
 
-Appearance and search logic are unchanged in this revision. The same-table unique key, data-completeness and payload guards remain. No telemetry, external runtime request or new privilege was added.
+Use `npm run check:connected` for independent checks and retained logs. GitHub pull requests build a marked engineering package; manual release mode is reserved for a frozen `certification` branch. Do not run `upgrade:api` or change the Service ID as routine setup: reviewed versions and the real ID are already configured.
 
-## Reviewable source
+## Set up a report
 
-`src/` contains only the current visual. `tests/` contains core/configuration/security fixtures. `scripts/` contains build/verification tooling, not runtime code. `sample/` contains synthetic data/Power Query fixtures, not an approved sample `.pbix`. `upstream/MICROSOFT_NOTICE.txt` and `LICENCE` retain required source notices.
+Use a unique RecordKey and fields from the same table. A repeated article number is not a unique key when an article has multiple delivery records. Add plain Date/DateTime columns rather than date hierarchies. Text/numeric search is free; date actions require an assigned Date Filter Pro license for the signed-in user.
 
-The clean review export excludes dist/node_modules/.tmp and historical/minified vendor trees. Do not confuse that export with a created or frozen GitHub certification branch; none has been created automatically.
+The [synthetic sample](sample/release-kit/README.md) includes 12 records and 19 expected-result scenarios. Create and test the matching offline sample PBIX in Desktop. Complete the [host acceptance checklist](docs/HOST_ACCEPTANCE_CHECKLIST.md), including Service, real licensing, RLS, bookmarks, exports and large datasets. Saved filters have a Clear recovery path; full query restoration from bookmarks is not promised.
+
+## Remaining release work
+
+Complete product support/privacy/EULA and listing media, real-host testing, the matching sample PBIX, then freeze the exact reviewed source and follow the [release sequence](docs/CERTIFICATION_NEXT_STEPS.md). Configuring a Service ID does not assign a license.
+
+[Licensing evidence](docs/LICENSING_CONFIGURED_0.6.2.md) · [Build repair history](docs/BUILD_REPAIR_0.6.2.md) · [GitHub workflow](docs/GITHUB_SETUP.md).
+
+## Source notices
+
+Based on DataBrothers Text Search Slicer, with Microsoft Text Filter as a reference. Retain `LICENCE`, `THIRD_PARTY_NOTICES.md` and `upstream/MICROSOFT_NOTICE.txt`. Source licensing notices are separate from the Marketplace product subscription terms.

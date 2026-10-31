@@ -1,36 +1,15 @@
-> **Latest status — 31 October 2026:** the real Service ID is now configured and the full candidate build passed (608 tests, zero audit findings, 22 simulated browser checks). Real Desktop/Service and licence assignment testing are deferred. See [licensing configuration evidence](LICENSING_CONFIGURED_0.6.2.md). Earlier dated status below is historical.
+# GitHub workflow and repository status
 
-> **Current status — 31 October 2026:** see [validated 0.6.2 build repairs](BUILD_REPAIR_0.6.2.md). Older status statements below are historical. GitHub access is configured; source is present; installed checks and engineering packaging now pass. Release licensing and real-host validation remain outstanding.
+Repository: https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates
 
-# Repository handoff
+Source is present and the Med-Hub connection has successfully updated [draft PR #1](https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates/pull/1), on `fix/0.6.2-build-validation`. Earlier empty-repository/upload instructions are obsolete. Do not re-upload old bundles over current work.
 
-Target: https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates
+Pull requests to main now automatically run the engineering validation workflow. [Run 41242898447](https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates/actions/runs/41242898447) passed at commit `33bf297ef2162df8565db1471183a8884f8c849b`; check the latest run for subsequent commits.
 
-The active GitHub connection was rechecked on 15 October 2026: repository contents are empty; pull access is available and push access is false. The files were prepared locally; nothing has been uploaded or run remotely.
+The workflow checks the source inventory before installation, collects independent diagnostics, builds the marked engineering package, runs Chromium checks against that exact binary and verifies the package checksum before uploading it. Repository contents permission is read-only. No secrets, publication, branch merge or license assignment is part of the workflow.
 
-## Upload with your own authorised Git account
+Manual workflow inputs are `diagnose`, `sdk-test`, and `release`; keep `resolve_api=false` unless deliberately reviewing an API upgrade. GitHub requires a workflow with manual dispatch to exist on the default branch before it can be dispatched normally. Automatic PR checks work on the current draft without merging it.
 
-The separate `Filter_Search_0.6.2_Handoff.bundle` contains all source files, including hidden `.github` and `.gitignore`, and two local preparation commits on `main`. It is an optional alternative to extracting/uploading the source ZIP. Do not upload the bundle as a single file to the repository expecting GitHub to extract it.
+Release mode requires a reviewed lowercase `certification` branch. Create that branch only after the package, real-host acceptance and source are ready to freeze together. It has not been created as part of this preparation.
 
-In a NEW working folder, with Git installed and your GitHub account authorised:
-
-```sh
-git clone Filter_Search_0.6.2_Handoff.bundle FilterSearch
-cd FilterSearch
-git remote set-url origin https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates.git
-git push -u origin main
-```
-
-This uses a normal push, never `--force`. If the remote is no longer empty, stop and reconcile its changes rather than overwrite them. Do not send personal access tokens, passwords or tax records in chat or commit them. Grant the relevant GitHub app/account the needed repository permissions through GitHub settings.
-
-The ZIP alternative contains the same clean source in `FilterSearch/`. Put its CONTENTS at the repository root. Before installation, run `node scripts/verify-source.mjs` to check the full inventory.
-
-## First cloud run
-
-Actions → **Filter & Search certification checks** → Run workflow:
-- Mode: **sdk-test** when you need an engineering package/compiler results before licensing/security release gates are resolved; **diagnose** for checks only.
-- resolve_api: **false**. The new API is already resolved in the committed inputs.
-
-The workflow is manual, does not publish or change repository files, and retains diagnostics. A successful engineering compilation is not a clean certification run. Known security or licensing blockers leave diagnostics red. Any produced test file is clearly labelled NOT FOR APPSOURCE.
-
-Once real dependency/security/API compatibility issues are resolved and the Service ID configured, use the normal release checks from a frozen lowercase `certification` branch. That branch has deliberately NOT been created or called ready in this handoff.
+Keep tokens and account documents out of source. Preserve both connected GitHub accounts. No integration removal or permission expansion is required by the current workflow.

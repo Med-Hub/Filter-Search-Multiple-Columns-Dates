@@ -1,9 +1,9 @@
-> **Latest status — 31 October 2026:** the real Service ID is now configured and the full candidate build passed (608 tests, zero audit findings, 22 simulated browser checks). Real Desktop/Service and licence assignment testing are deferred. See [licensing configuration evidence](LICENSING_CONFIGURED_0.6.2.md). Earlier dated status below is historical.
-
 # Final host acceptance — fill in observations, not assumptions
 
 Product: Filter & Search – Multiple Columns & Dates. Publisher: Veilig Starten.
-Candidate filename/hash: **not supplied yet**. Real paid-plan Service ID configured: **not supplied**.
+Candidate: **Filter_Search_0.6.2.pbiviz**, visual version **0.6.2.0**. Record the SHA-256 from the SDK_BUILD_REPORT.json belonging to the exact file tested: **________**.
+
+Configured Service ID: `bb7a616c-775c-4bd6-9907-a16c1d9b5e8d.filter-search.date-filter-pro`. The ID does not grant an entitlement; record the actual assigned/unassigned test user state separately.
 All results below are **NOT RUN** in this session. Browser simulation and core test results do not fill these cells.
 
 | Check | Desktop/version | Service/browser | Actual result/evidence |
