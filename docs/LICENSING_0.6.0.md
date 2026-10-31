@@ -1,3 +1,5 @@
+> **Latest status — 31 October 2026:** the real Service ID is now configured and the full candidate build passed (608 tests, zero audit findings, 22 simulated browser checks). Real Desktop/Service and licence assignment testing are deferred. See [licensing configuration evidence](LICENSING_CONFIGURED_0.6.2.md). Earlier dated status below is historical.
+
 # Filter & Search — Microsoft licensing integration (0.6.0)
 
 ## Status: integration/test build, not the AppSource submission

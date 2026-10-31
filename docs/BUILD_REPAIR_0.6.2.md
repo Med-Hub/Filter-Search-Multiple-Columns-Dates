@@ -1,3 +1,5 @@
+> **Latest status — 31 October 2026:** the real Service ID is now configured and the full candidate build passed (608 tests, zero audit findings, 22 simulated browser checks). Real Desktop/Service and licence assignment testing are deferred. See [licensing configuration evidence](LICENSING_CONFIGURED_0.6.2.md). Earlier dated status below is historical.
+
 # 0.6.2 build repair — 31 October 2026
 
 Development/test candidate, **not Microsoft-certified or ready for AppSource**.

@@ -1,3 +1,5 @@
+> **Latest status — 31 October 2026:** the real Service ID is now configured and the full candidate build passed (608 tests, zero audit findings, 22 simulated browser checks). Real Desktop/Service and licence assignment testing are deferred. See [licensing configuration evidence](LICENSING_CONFIGURED_0.6.2.md). Earlier dated status below is historical.
+
 > **Current status — 31 October 2026:** see [validated 0.6.2 build repairs](BUILD_REPAIR_0.6.2.md). Older status statements below are historical. GitHub access is configured; source is present; installed checks and engineering packaging now pass. Release licensing and real-host validation remain outstanding.
 
 > **Update 15 October 2026:** the source now has a scoped `sockjs@0.3.24 -> uuid@11.1.1` candidate with npm-resolved integrity metadata. Installed compatibility is still unverified. The unresolved escalation is primarily `braces@3.0.3`; do not report that UUID 8.3.2 remains in the current lock. See [TOOLCHAIN_0.6.2.md](TOOLCHAIN_0.6.2.md).

@@ -1,3 +1,3 @@
-# ENGINEERING TEST CANDIDATE — NOT READY FOR SUBMISSION
+# CONFIGURED CANDIDATE — HOST VALIDATION PENDING
 
-The 0.6.2 build repair passes installed checks and SDK engineering packaging with a clean full dependency audit. The real licensing Service ID, Power BI Desktop/Service acceptance, sample PBIX and certification review freeze remain outstanding. See docs/BUILD_REPAIR_0.6.2.md.
+The owner-supplied Date Filter Pro Service ID is configured. The full 0.6.2 candidate build passes with 608 tests, zero audit findings and 22 simulated browser checks. Real Power BI Desktop/Service licensing acceptance, matching sample PBIX, listing assets and certification review freeze remain outstanding. No Marketplace offer was published. See docs/LICENSING_CONFIGURED_0.6.2.md.
