@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.tmp/
+.core-build/
+build-logs/
+webpack.statistics.*.html
+.DS_Store
+*.log
+.env
+.env.*

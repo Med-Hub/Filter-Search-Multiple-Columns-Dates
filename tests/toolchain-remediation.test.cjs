@@ -23,11 +23,28 @@ for(const [label,mutate]of [
 for(const file of ['../bad.pbiviz.json','resources/../bad.pbiviz.json','https://example.invalid/visual.pbiviz.json','/resources/a.pbiviz.json','resources\\a.pbiviz.json','resources/a.json'])test('Resource path rejects '+file,async()=>{const f=fixture();f.outer.resources[0].file=file;const {resourcePath}=await mod;assert.throws(()=>resourcePath(f.outer));});
 test('UUID check validates the no-argument v4 shape with an isolated fixture (not installed-tree proof)',async()=>{let n=0;const {probeUuid}=await probe;assert.equal(probeUuid({v4:()=>String(++n),validate:()=>true,version:()=>4},16).generated,16);});
 for(const [label,api]of [['missing API',{}],['wrong version',{v4:()=> 'a',validate:()=>true,version:()=>3}],['invalid uuid',{v4:()=> 'a',validate:()=>false,version:()=>4}],['duplicate outputs',{v4:()=> 'a',validate:()=>true,version:()=>4}]])test('Installed UUID probe fails on '+label,async()=>{const {probeUuid}=await probe;assert.throws(()=>probeUuid(api));});
-test('Manifest narrows UUID override to the reviewed SockJS version',()=>{const p=JSON.parse(fs.readFileSync(path.join(project,'package.json'),'utf8'));assert.deepEqual(p.overrides,{'sockjs@0.3.24':{uuid:'11.1.1'}});});
+test('Manifest narrows UUID override to the reviewed SockJS version',()=>{const p=JSON.parse(fs.readFileSync(path.join(project,'package.json'),'utf8'));assert.deepEqual(p.overrides,{'sockjs@0.3.24':{uuid:'11.1.1'},'minimatch@10.2.6':'11.0.1'});});
 test('Real regenerated lock matches both retrieved registry versions and checksums',()=>{const p=JSON.parse(fs.readFileSync(path.join(project,'package-lock.json'),'utf8'));assert.equal(p.packages['node_modules/powerbi-visuals-api'].version,'5.11.1');assert.equal(p.packages['node_modules/powerbi-visuals-api'].integrity,'sha512-sAdzhUPEXylS3ad+RSoU+RmkT6KguoEo0DJ0SsSt0TOSpQH2vI3nPmXusb2RWH3XpsB7UufYV+d4Cgp0OMAKFw==');assert.equal(p.packages['node_modules/uuid'].version,'11.1.1');assert.equal(p.packages['node_modules/uuid'].integrity,'sha512-vIYxrBCC/N/K+Js3qSN88go7kIfNPssr/hHCesKCQNAjmgvYS2oqr69kIufEG+O4+PfezOH4EbIeHCfFov8ZgQ==');});
 test('No older nested UUID remains in the lock',()=>{const p=JSON.parse(fs.readFileSync(path.join(project,'package-lock.json'),'utf8'));for(const [location,entry]of Object.entries(p.packages))if(/node_modules\/uuid$/.test(location))assert.equal(entry.version,'11.1.1');});
-test('Current braces blocker is not hidden by UUID remediation',async()=>{const {knownDependencyFindings}=await import('../scripts/certification-contract.mjs');const p=JSON.parse(fs.readFileSync(path.join(project,'package-lock.json'),'utf8'));assert.ok(knownDependencyFindings(p).some(f=>f.package==='braces'));assert.equal(knownDependencyFindings(p).some(f=>f.package==='uuid'),false);});
+test('Withdrawn braces advisory no longer blocks patched 3.0.3',async()=>{const {knownDependencyFindings}=await import('../scripts/certification-contract.mjs');const p=JSON.parse(fs.readFileSync(path.join(project,'package-lock.json'),'utf8'));assert.equal(knownDependencyFindings(p).some(f=>f.package==='braces'),false);assert.equal(knownDependencyFindings(p).some(f=>f.package==='uuid'),false);});
 test('Manifest preserves unconfigured licensing; no test service ID is inserted',()=>{const c=JSON.parse(fs.readFileSync(path.join(project,'config/licensing.json'),'utf8'));assert.equal(c.servicePlanId,'');});
 test('Engineering workflow is explicit, marked, and keeps diagnostics failures visible',()=>{const y=fs.readFileSync(path.join(project,'.github/workflows/certification-checks.yml'),'utf8');assert.ok(y.includes('options: [diagnose, sdk-test, release]'));assert.ok(y.includes('NOT-FOR-APPSOURCE-sdk-test'));assert.ok(y.includes('Keep unresolved diagnostics red'));assert.ok(y.includes("steps.diagnostics.outcome != 'success'"));assert.ok(y.includes('npm run package:sdk:test'));});
 test('Review source export writes its status BEFORE hashing every file',()=>{const s=fs.readFileSync(path.join(project,'scripts/export-certification.mjs'),'utf8');assert.ok(s.indexOf("await writeFile(path.join(out,'CERTIFICATION_STATUS.md')")<s.indexOf('await walk(out)'));assert.ok(s.includes("'verify-source.mjs'"));});
 test('SDK packager validates the actual embedded capability and publisher contract',()=>{const s=fs.readFileSync(path.join(project,'scripts/package-sdk.mjs'),'utf8');assert.ok(s.includes('validateArtifact({outer,resource,manifest:pbi,capabilities,packageVersion:pkg.version,expectedIcon})'));assert.ok(s.includes('applicationHashes'));assert.ok(s.includes('inputHashes'));assert.ok(s.includes('_NOT_FOR_APPSOURCE_Test'));});
+test('Patched minimatch preserves installed lint consumers and source discovery',()=>{
+ const {createRequire}=require('node:module');
+ const consumers=['eslint','@eslint/config-array','@typescript-eslint/typescript-estree'];
+ for(const consumer of consumers){
+  const from=createRequire(require.resolve(consumer));
+  const mm=from('minimatch');
+  assert.equal(from('minimatch/package.json').version,'11.0.1');
+  for(const [file,pattern,options,wanted] of [
+   ['src/components/TextSearchSlicer.tsx','src/**/*.{ts,tsx}',{},true],
+   ['src/core/query.ts','src/**/*.ts',{},true],
+   ['node_modules/example/index.ts','src/**/*.ts',{},false],
+   ['.github/workflows/check.yml','**/*.yml',{dot:true},true],
+   ['.github/workflows/check.yml','**/*.yml',{},false],
+   ['src/core/query.ts','!**/*.js',{},true]
+  ]){assert.equal(mm.minimatch(file,pattern,options),wanted);assert.equal(new mm.Minimatch(pattern,options).match(file),wanted);}
+ }
+});

@@ -28,6 +28,8 @@ export function inspectInstalled() {
         if(data.version!==wanted)fail(`${name}: installed ${data.version}, expected ${wanted}.`);
         installed[name]=data.version;
     }
+    const visual=JSON.parse(fs.readFileSync(path.join(root,'pbiviz.json'),'utf8'));
+    if(here('powerbi-visuals-api').version!==visual.apiVersion)fail('Installed API host version differs from pbiviz.json.');
     const apiDir=path.join(root,'node_modules/powerbi-visuals-api');
     for(const file of ['index.d.ts','schema.capabilities.json'])if(!fs.existsSync(path.join(apiDir,file)))fail('API package is incomplete: '+file);
     // Resolve exactly the SockJS selected by webpack-dev-server, not an arbitrary

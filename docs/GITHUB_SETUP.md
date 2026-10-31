@@ -1,3 +1,5 @@
+> **Current status — 31 October 2026:** see [validated 0.6.2 build repairs](BUILD_REPAIR_0.6.2.md). Older status statements below are historical. GitHub access is configured; source is present; installed checks and engineering packaging now pass. Release licensing and real-host validation remain outstanding.
+
 # Repository handoff
 
 Target: https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates

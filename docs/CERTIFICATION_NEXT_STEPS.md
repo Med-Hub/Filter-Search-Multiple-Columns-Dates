@@ -1,3 +1,5 @@
+> **Current status — 31 October 2026:** see [validated 0.6.2 build repairs](BUILD_REPAIR_0.6.2.md). Older status statements below are historical. GitHub access is configured; source is present; installed checks and engineering packaging now pass. Release licensing and real-host validation remain outstanding.
+
 > **Update 15 October 2026:** use [TOOLCHAIN_0.6.2.md](TOOLCHAIN_0.6.2.md) and [BUILD_KIT_README.md](BUILD_KIT_README.md) for current status. API/UUID lock resolution has progressed, but installed validation and braces remediation are still blocked. Earlier instructions below are historical.
 
 # Remaining release sequence

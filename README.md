@@ -1,3 +1,5 @@
+> **Current status — 31 October 2026:** see [validated 0.6.2 build repairs](docs/BUILD_REPAIR_0.6.2.md). Older status statements below are historical. GitHub access is configured; source is present; installed checks and engineering packaging now pass. Release licensing and real-host validation remain outstanding.
+
 # Source candidate 0.6.2 — not a release
 
 Current work: [Toolchain changes and evidence](docs/TOOLCHAIN_0.6.2.md) · [Build commands](docs/BUILD_KIT_README.md) · [GitHub handoff](docs/GITHUB_SETUP.md).

@@ -1,3 +1,5 @@
+> **Current status — 31 October 2026:** see [validated 0.6.2 build repairs](BUILD_REPAIR_0.6.2.md). Older status statements below are historical. GitHub access is configured; source is present; installed checks and engineering packaging now pass. Release licensing and real-host validation remain outstanding.
+
 # 0.6.2 — source/toolchain candidate, 15 October 2026
 
 **Not an installable release, not certified.** No 0.6.2 `.pbiviz` was built. The last delivered binary remains the unconfigured 0.6.1 hardening test. Do not modify that binary's version or API label to pretend it is a new SDK build.

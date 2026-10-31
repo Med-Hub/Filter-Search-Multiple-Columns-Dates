@@ -1,8 +1,8 @@
 {
-  "checkedOn": "2026-10-15",
+  "checkedOn": "2026-10-31",
   "apiVersion": "5.11.1",
   "toolsVersion": "7.2.1",
-  "status": "API 5.11.1 resolved in npm-generated lock; installed SDK compatibility and full audit remain unverified",
+  "status": "npm API 5.11.1 exports host API 5.11.0; installed checks and SDK engineering packaging verified; release licensing and host acceptance outstanding",
   "apiSource": "https://www.npmjs.com/package/powerbi-visuals-api",
   "toolsSource": "https://www.npmjs.com/package/powerbi-visuals-tools"
 }
