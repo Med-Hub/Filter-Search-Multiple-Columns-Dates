@@ -1,5 +1,8 @@
 name: Filter & Search certification checks
 on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
       mode:
@@ -18,8 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      MODE: ${{ inputs.mode }}
-      RESOLVE_API: ${{ inputs.resolve_api }}
+      MODE: ${{ github.event_name == 'pull_request' && 'sdk-test' || inputs.mode }}
+      RESOLVE_API: ${{ github.event_name == 'workflow_dispatch' && inputs.resolve_api || false }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -36,28 +39,28 @@ jobs:
             test "$RESOLVE_API" = false
           fi
       - name: Resolve reviewed API
-        if: inputs.resolve_api && inputs.mode != 'release'
+        if: github.event_name == 'workflow_dispatch' && inputs.resolve_api && inputs.mode != 'release'
         run: npm run upgrade:api
       - name: Collect independent diagnostics
         id: diagnostics
         continue-on-error: true
         run: npm run check:connected
       - name: Build engineering candidate
-        if: inputs.mode == 'sdk-test' && success()
+        if: env.MODE == 'sdk-test' && steps.diagnostics.outcome == 'success'
         run: npm run package:sdk:test
       - name: Build release candidate
-        if: inputs.mode == 'release' && steps.diagnostics.outcome == 'success'
+        if: env.MODE == 'release' && steps.diagnostics.outcome == 'success'
         run: npm run package
       - name: Test the exact package in Chromium
-        if: inputs.mode != 'diagnose' && success()
+        if: env.MODE != 'diagnose' && steps.diagnostics.outcome == 'success' && success()
         run: |
           python3 -m pip install playwright==1.64.1
           python3 -m playwright install --with-deps chromium
           python3 scripts/test-release-smoke.py
       - name: Select exact verified artifact
-        if: inputs.mode != 'diagnose' && success()
+        if: env.MODE != 'diagnose' && steps.diagnostics.outcome == 'success' && success()
         env:
-          ARTIFACT_NAME: ${{ inputs.mode == 'sdk-test' && 'NOT-FOR-APPSOURCE-sdk-test' || 'release-candidate' }}
+          ARTIFACT_NAME: ${{ env.MODE == 'sdk-test' && 'NOT-FOR-APPSOURCE-sdk-test' || 'release-candidate' }}
         run: |
           node --input-type=module <<'JS'
           import fs from 'node:fs';
@@ -76,7 +79,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: ${{ inputs.mode == 'sdk-test' && 'NOT-FOR-APPSOURCE-sdk-test' || 'certification-evidence' }}
+          name: ${{ env.MODE == 'sdk-test' && 'NOT-FOR-APPSOURCE-sdk-test' || 'certification-evidence' }}
           path: build-logs/
           if-no-files-found: warn
           retention-days: 14
