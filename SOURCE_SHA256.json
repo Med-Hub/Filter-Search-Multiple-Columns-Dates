@@ -59,7 +59,7 @@
   "scripts/package-sdk.mjs": "8e2af1e9cf6499b02d8f962d4fd84d22c3dbf07c9ad1698592268c8444aa2aaa",
   "scripts/test-core.mjs": "1a3e670cefbe28cb8b00945b71cd1f8ae098b1585a079351341944e021208177",
   "scripts/test-licensing-browser.py": "538798f277c6eb5278e7a00b82f195be8d2fa0343e9931ee661d515177dc750a",
-  "scripts/test-release-smoke.py": "10902809107f986ebdc58aff6d7bdb607e9ff3450bb5e76593589b32decb9992",
+  "scripts/test-release-smoke.py": "76fa937b831fbf14e25b07fce6183ff5b66429d9c02f6c58b8f66f4a91757d9e",
   "scripts/test-render-lifecycle.py": "5bbab5ca2690241aa8a82ec7fbe056c4c503f5d60644db54a638302a36fd7ef7",
   "scripts/test-ui.py": "ce5a5c249aff2b0880e06a347058a081715ff94651907ebfe990fdad0c4b517b",
   "scripts/upgrade-api.mjs": "c0905167eff5f99980b690d2115fa36cbb9b36e34413da4a60add725a0b2fd86",
