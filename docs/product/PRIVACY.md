@@ -1,4 +1,4 @@
-> Prepared notice — customer-facing wording is complete. Before adopting this as the live policy, verify the Zoho data-processing agreement and transfer safeguards in the account. That account check is blocked by sign-in; no signed agreement is claimed here.
+> Prepared notice — customer-facing wording is complete. Before adopting this as the live policy, verify the Zoho data-processing agreement and transfer safeguards in the account. That account check remains incomplete because an operable authenticated agreement page is unavailable; no signed agreement is claimed here.
 
 # Filter & Search privacy notice
 
