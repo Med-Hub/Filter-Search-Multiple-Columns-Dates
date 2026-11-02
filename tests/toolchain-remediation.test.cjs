@@ -2,13 +2,14 @@ const {test}=require('node:test');const assert=require('node:assert/strict');con
 const project=path.join(__dirname,'..');
 const mod=import('../scripts/artifact-contract.mjs');
 const probe=import('../scripts/check-installed-toolchain.mjs');
-function fixture(){const visual={guid:'fieldFindTest',version:'0.6.2.0',name:'fieldFindTest',displayName:'Filter & Search'};const author={name:'Test publisher'};const capabilities={privileges:[],dataRoles:[]};const icon='data:image/png;base64,TEST_FIXTURE';return {
- manifest:{visual,author,apiVersion:'5.11.1'},capabilities,packageVersion:'0.6.2',expectedIcon:icon,
- outer:{version:'0.6.2.0',visual:{...visual},author:{...author},resources:[{resourceId:'rId0',sourceType:5,file:'resources/example.pbiviz.json'}],metadata:{pbivizjson:{resourceId:'rId0'}}},
+function fixture(){const visual={guid:'fieldFindTest',version:'1.0.0.0',name:'fieldFindTest',displayName:'Filter & Search'};const author={name:'Test publisher'};const capabilities={privileges:[],dataRoles:[]};const icon='data:image/png;base64,TEST_FIXTURE';return {
+ manifest:{visual,author,apiVersion:'5.11.1'},capabilities,packageVersion:'1.0.0',expectedIcon:icon,
+ outer:{version:'1.0.0.0',visual:{...visual},author:{...author},resources:[{resourceId:'rId0',sourceType:5,file:'resources/example.pbiviz.json'}],metadata:{pbivizjson:{resourceId:'rId0'}}},
  resource:{visual:{...visual},author:{...author},apiVersion:'5.11.1',capabilities:structuredClone(capabilities),externalJS:[],content:{js:'var visual = {};',css:'.visual {display:block}',iconBase64:icon}}
 };}
-test('Artifact contract accepts an internally matching package fixture',async()=>{assert.equal((await mod).validateArtifact(fixture()).version,'0.6.2.0');});
+test('Artifact contract accepts an internally matching package fixture',async()=>{assert.equal((await mod).validateArtifact(fixture()).version,'1.0.0.0');});
 for(const [label,mutate]of [
+ ['zero-major version',f=>{f.packageVersion='0.6.2';for(const v of [f.manifest.visual,f.outer,f.outer.visual,f.resource.visual])v.version='0.6.2.0';}],
  ['outer version',f=>f.outer.version='0.6.1.0'],['inner version',f=>f.resource.visual.version='0.6.1.0'],
  ['wrong API',f=>f.resource.apiVersion='5.4.0'],['wrong GUID',f=>f.resource.visual.guid='other'],
  ['outer publisher',f=>f.outer.author.name='Other'],['inner publisher',f=>f.resource.author.name='Other'],

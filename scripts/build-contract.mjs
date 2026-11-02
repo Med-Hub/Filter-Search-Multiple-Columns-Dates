@@ -28,6 +28,7 @@ export function validateMetadata(pkg, visual, icon, {requireEmail=true}={}) {
     if(visual.author.email&&!validEmail(visual.author.email))problems.push('The configured publisher email is invalid.');
     if(!hostApiVersion(pkg.dependencies?.['powerbi-visuals-api']) || hostApiVersion(pkg.dependencies?.['powerbi-visuals-api'])!==visual.apiVersion)problems.push('API version differs between package.json and pbiviz.json.');
     if(!/^\d+\.\d+\.\d+$/.test(pkg.version)||visual.visual.version!==pkg.version+'.0')problems.push('Package and visual release versions must agree (x.y.z and x.y.z.0).');
+    if(!/^[1-9]\d*\.(0|[1-9]\d*)\.(0|[1-9]\d*)\.0$/.test(visual.visual.version||''))problems.push('Marketplace visual version must use a nonzero major version without leading zeros.');
     if(visual.visual.guid!=='fieldFindScope6F2E2BC419F64B839AFD02C06EFD2148')problems.push('FieldFind GUID changed; keep the existing visual identity for updates.');
     if(visual.visual.visualClassName!=='Visual')problems.push('The visual class must match the exported Visual class.');
     for(const field of ['name','displayName','description'])if(typeof visual.visual[field]!=='string'||!visual.visual[field].trim())problems.push('Missing visual '+field+'.');

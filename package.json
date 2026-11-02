@@ -1,7 +1,7 @@
 {
   "name": "fieldfind-scope",
   "description": "Search text and numbers across columns. Add licensed date filtering with Date Filter Pro.",
-  "version": "0.6.2",
+  "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "engines": {

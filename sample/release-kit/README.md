@@ -4,7 +4,7 @@ Import `Create_Release_Sample.pq` as a blank Power Query named **ReleaseSample**
 
 Use **RecordKey** in the Record key well. R001 and R002 deliberately share ArticleNo but have different delivery records. Do not deduplicate them. Add ArticleNo, ArticleName, Supplier, Code and UnitPrice to Search fields; add DeliveryDate/StartDate as plain columns in Date fields. Start each case with the other search/date conditions cleared. Select the fields/mode shown in `Expected_Results.json`.
 
-Date cases need the final configured Service ID plus an assigned licence. The 0.6.2 candidate has the real Service ID configured, but an unlicensed user must still have paid dates locked. Do not turn off licensing to run the sample.
+Date cases need the final configured Service ID plus an assigned licence. The 1.0.0 candidate has the real Service ID configured, but an unlicensed user must still have paid dates locked. Do not turn off licensing to run the sample.
 
 ## Expected results
 

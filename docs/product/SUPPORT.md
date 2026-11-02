@@ -1,6 +1,6 @@
 # Filter & Search support
 
-Published preparation documentation for the 0.6.2 candidate. Power BI Desktop/Service validation is still pending; this is not a Microsoft certification claim.
+Published preparation documentation for the 1.0.0 candidate. Power BI Desktop/Service validation is still pending; this is not a Microsoft certification claim.
 
 Filter & Search – Multiple Columns & Dates helps you find records across several columns in Power BI. Text and numeric search are free. Date filtering requires a Date Filter Pro license assigned to the signed-in user.
 

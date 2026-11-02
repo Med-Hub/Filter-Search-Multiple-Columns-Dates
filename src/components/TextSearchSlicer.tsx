@@ -25,7 +25,7 @@ export interface ITextSearchSlicerProps {
 }
 interface State { text: string; selectedIds: string[]; date: DateFilter | null; options: CompactOptions; view: 'search' | 'options'; rowMode: RowMode; localError: string; }
 /** Release marker read by the packaged-browser tests. */
-export const RELEASE = '0.6.2';
+export const RELEASE = '1.0.0';
 const LIVE_DELAY = 400;
 
 export default class TextSearchSlicer extends React.Component<ITextSearchSlicerProps, State> {

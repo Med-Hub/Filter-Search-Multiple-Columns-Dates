@@ -1,4 +1,4 @@
-# Remaining release sequence — configured 0.6.2
+# Remaining release sequence — configured 1.0.0
 
 The real Service ID, dependency/API repair and automated build gates have been completed in the recorded candidate. Do not repeat initial account setup, reconfigure the ID or upgrade dependencies without a separate reason. The offer remains unpublished and actual Power BI host/license acceptance is pending.
 
