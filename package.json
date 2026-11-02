@@ -1,6 +1,6 @@
 {
   "name": "fieldfind-scope",
-  "description": "Free multi-column text and numeric search with Microsoft-licensed Date Filter Pro. Configured candidate; real Power BI host validation pending.",
+  "description": "Search text and numbers across columns. Add licensed date filtering with Date Filter Pro.",
   "version": "0.6.2",
   "private": true,
   "license": "MIT",

@@ -5,8 +5,8 @@
     "guid": "fieldFindScope6F2E2BC419F64B839AFD02C06EFD2148",
     "visualClassName": "Visual",
     "version": "0.6.2.0",
-    "description": "Free multi-column text and numeric search with Microsoft-licensed Date Filter Pro. Configured candidate; real Power BI host validation pending.",
-    "supportUrl": "https://veiligstarten.nl",
+    "description": "Search text and numbers across columns. Add licensed date filtering with Date Filter Pro.",
+    "supportUrl": "https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates/blob/fix/0.6.2-build-validation/docs/product/SUPPORT.md",
     "gitHubUrl": "https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates"
   },
   "apiVersion": "5.11.0",

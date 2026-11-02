@@ -37,3 +37,5 @@ These expectations are authored independently of the search result function and 
 Use three pages: (1) Setup and key-grain example; (2) Free multi-column search next to a standard Table showing RecordKey; (3) Date Filter Pro next to a standard date slicer for comparison. Keep product subscription disclosure visible. Use only the final submitted .pbiviz version. Save as an offline .pbix in Power BI Desktop and repeat tests in Service. Do not package employer/private report data.
 
 No .pbix is supplied by this kit; it must be saved and verified in Power BI Desktop. This synthetic fixture does not replace Microsoft’s separately prescribed sample test dataset.
+
+The final sample page text is prepared in [Hints-and-Setup.md](Hints-and-Setup.md). Create the actual PBIX in Desktop as part of the final host step.

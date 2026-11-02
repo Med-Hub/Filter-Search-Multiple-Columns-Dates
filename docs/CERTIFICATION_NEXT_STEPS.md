@@ -2,7 +2,7 @@
 
 The real Service ID, dependency/API repair and automated build gates have been completed in the recorded candidate. Do not repeat initial account setup, reconfigure the ID or upgrade dependencies without a separate reason. The offer remains unpublished and actual Power BI host/license acceptance is pending.
 
-1. Complete the store description, approved 300 × 300 Marketplace logo, product support/privacy pages and reviewed EULA/contract choice. Preserve upstream license notices. Confirm the final display name and monitored support contact.
+1. Use the prepared English listing, original 300 × 300 logo and product documents in docs/product/. Support contact and publisher identity are confirmed; Standard Contract is the selected route. Complete the Zoho account-agreement check and Partner Center save/acceptance after sign-in. Preserve upstream notices. See CERTIFICATION_STATUS.md for the master record.
 2. Prepare the new offer's private licensing test arrangement with a test tenant and user. A configured ID is not an assigned license. Do not mark simulated responses as real entitlement validation.
 3. Build the exact candidate with `npm ci` and `npm run package`, retain its final SDK report, and run `python3 scripts/test-release-smoke.py`. Every changed package needs its own evidence.
 4. Run Desktop/Service, assigned/unassigned license, RLS, exports, field changes, refresh, multiple-instance and bookmark checks. Use Microsoft's prescribed sample dataset alongside the 19 synthetic scenarios. Fill `HOST_ACCEPTANCE_CHECKLIST.md` with observations and exact package hashes.

@@ -4,6 +4,10 @@ Version **0.6.2** (visual 0.6.2.0). Publisher: Veilig Starten.
 
 Free multi-column text/numeric search with Microsoft-licensed Date Filter Pro. The real Service ID is configured. The product remains a **candidate awaiting Power BI Desktop/Service and real-license acceptance**, not a Microsoft-certified release.
 
+## Project record
+
+Use [CERTIFICATION_STATUS.md](CERTIFICATION_STATUS.md) as the master record for decisions, completed work, account blockers and final host testing. Product documents: [Support](docs/product/SUPPORT.md), [Privacy](docs/product/PRIVACY.md), [Terms](docs/product/TERMS.md), [Listing](docs/product/LISTING.md). The original vector and Marketplace PNG are in assets/.
+
 ## Current validation
 
 The full configured candidate was built locally. GitHub engineering validation [run 41242898447](https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates/actions/runs/41242898447) passed at commit `33bf297ef2162df8565db1471183a8884f8c849b`: fresh installation, source inventory, lint, typechecking, 608 tests, full audit with zero vulnerabilities, SDK packaging and 22 simulated browser checks. Later metadata/documentation changes require their own current build evidence; inspect the latest PR checks.
@@ -33,7 +37,7 @@ The [synthetic sample](sample/release-kit/README.md) includes 12 records and 19 
 
 ## Remaining release work
 
-Complete product support/privacy/EULA and listing media, real-host testing, the matching sample PBIX, then freeze the exact reviewed source and follow the [release sequence](docs/CERTIFICATION_NEXT_STEPS.md). Configuring a Service ID does not assign a license.
+Pre-test preparation now includes support/privacy text, a selected Standard Contract route, a new original logo, listing copy and sample-page text. Account-dependent agreement checks and Partner Center entry remain blocked by sign-in; the privacy notice flags that limit. Finish those account steps, then perform real-host testing, save the matching sample PBIX and capture genuine screenshots. Freeze the reviewed source only afterwards; follow the [release sequence](docs/CERTIFICATION_NEXT_STEPS.md). Configuring a Service ID does not assign a license.
 
 [Licensing evidence](docs/LICENSING_CONFIGURED_0.6.2.md) · [Build repair history](docs/BUILD_REPAIR_0.6.2.md) · [GitHub workflow](docs/GITHUB_SETUP.md).
 
