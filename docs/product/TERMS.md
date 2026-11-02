@@ -6,7 +6,7 @@ Prepared 1 November 2026. Publisher: Veilig Starten, Groenewoudseweg 173, 5621 B
 
 The selected route is the **Microsoft Marketplace Standard Contract**, without publisher amendments. The official contract is available at [Microsoft Learn](https://learn.microsoft.com/legal/marketplace/standard-contract). This avoids inventing a conflicting custom subscription contract and expressly accommodates applicable open-source licences.
 
-This is the selected configuration for the unpublished offer. It has not yet been accepted or saved in Partner Center. The contract presented in the actual Marketplace order governs a purchase; this preparation document does not create an order or assert that an agreement has already been accepted.
+This is the selected configuration for the unpublished offer. The publisher expressly authorized its acceptance, and the Standard Contract selection was accepted and saved in Partner Center on 2 November 2026. The contract presented in the actual Marketplace order governs a purchase; this preparation document does not create an order or replace the terms presented with that order.
 
 ## Free and paid functionality
 
@@ -22,4 +22,4 @@ The source includes DataBrothers' MIT-licensed Text Search Slicer and retained M
 
 ## Before offer activation
 
-Select the Standard Contract in Partner Center and review its acceptance dialog. In particular, the publisher takes documentation, support-data, warranty, claim-defence and liability obligations; choosing a template is not a waiver of those duties. Microsoft's published guidance says an offer published under the Standard Contract cannot later switch to custom terms. No acceptance was performed by this preparation pass.
+The Standard Contract selection has been accepted and saved for this draft. In particular, the publisher takes documentation, support-data, warranty, claim-defence and liability obligations; choosing a template is not a waiver of those duties. Microsoft's published guidance says an offer published under the Standard Contract cannot later switch to custom terms. The offer remains unpublished; no customer order has been placed.

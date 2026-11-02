@@ -1,4 +1,4 @@
-> Prepared notice — customer-facing wording is complete. Before adopting this as the live policy, verify the Zoho data-processing agreement and transfer safeguards in the account. That account check remains incomplete because an operable authenticated agreement page is unavailable; no signed agreement is claimed here.
+> Prepared notice — customer-facing wording is complete. The Zoho DPA request was initiated with the publisher’s authorization on 2 November 2026 and the account reported Pending Signatures. Before activating this notice, obtain the completed agreement and verify the applicable transfer safeguards. No completed DPA signature is claimed.
 
 # Filter & Search privacy notice
 

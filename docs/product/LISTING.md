@@ -1,8 +1,10 @@
 # Marketplace listing — prepared fields
 
-Reviewed 1 November 2026 against the prepared 0.6.2 source. Not saved or published to Partner Center. English listing prepared. Validate host behaviour before submission.
+Updated 2 November 2026 for the 1.0.0 candidate. English summary, description, keywords and logo are saved in the unpublished Partner Center draft. Validate host behaviour before submission.
 
-**Display name:** Filter & Search – Multiple Columns & Dates
+**Saved Marketplace name:** Filter & Search
+
+**Package display name:** Filter & Search – Multiple Columns & Dates
 
 **Summary:** Search text and numbers across columns. Add date conditions with Date Filter Pro.
 
@@ -30,6 +32,10 @@ Use a distinct record key to keep separate transactions searchable even when the
 
 ## Submission status
 
-The title, summary, description, keywords, category, English language and replacement logo are prepared. No Partner Center fields were changed because the controlled browser requires sign-in. The existing offer name is Filter & Search; the proposed display name follows the package identity.
+The English listing, Filters category, support/privacy links, Standard Contract and replacement logo are saved in the draft. Microsoft saved the listing with one validation error: at least one genuine screenshot is required. The existing reserved Marketplace name remains Filter & Search.
 
 Marketplace logo: ../../assets/marketplace-logo.png (300×300 PNG). Genuine screenshots and the final PBIX will be produced during the deferred Power BI acceptance step.
+
+## Saved plan description
+
+Unlock date filtering in Filter & Search. Apply one condition to a selected date column: on a day, between dates, on or before, on or after, or blank dates. Combine it with text search on the same record. Date Filter Pro is a per-user subscription managed by Microsoft and requires a license assigned to the signed-in Power BI user. Text and numeric search remain free.
