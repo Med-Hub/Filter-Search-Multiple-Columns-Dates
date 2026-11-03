@@ -1,0 +1,88 @@
+name: Filter & Search certification checks
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Validation mode
+        type: choice
+        options: [diagnose, sdk-test, release]
+        default: diagnose
+      resolve_api:
+        description: Resolve the reviewed API target before diagnosis (never in release)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      MODE: ${{ github.event_name == 'pull_request' && 'sdk-test' || inputs.mode }}
+      RESOLVE_API: ${{ github.event_name == 'workflow_dispatch' && inputs.resolve_api || false }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Verify source and release branch
+        run: |
+          node scripts/verify-source.mjs
+          if [ "$MODE" = release ]; then
+            test "$GITHUB_REF" = refs/heads/certification
+            test "$RESOLVE_API" = false
+          fi
+      - name: Resolve reviewed API
+        if: github.event_name == 'workflow_dispatch' && inputs.resolve_api && inputs.mode != 'release'
+        run: npm run upgrade:api
+      - name: Collect independent diagnostics
+        id: diagnostics
+        continue-on-error: true
+        run: npm run check:connected
+      - name: Build engineering candidate
+        if: env.MODE == 'sdk-test' && steps.diagnostics.outcome == 'success'
+        run: npm run package:sdk:test
+      - name: Build release candidate
+        if: env.MODE == 'release' && steps.diagnostics.outcome == 'success'
+        run: npm run package
+      - name: Test the exact package in Chromium
+        if: env.MODE != 'diagnose' && steps.diagnostics.outcome == 'success' && success()
+        run: |
+          python3 -m pip install playwright==1.64.1
+          python3 -m playwright install --with-deps chromium
+          python3 scripts/test-release-smoke.py
+      - name: Select exact verified artifact
+        if: env.MODE != 'diagnose' && steps.diagnostics.outcome == 'success' && success()
+        env:
+          ARTIFACT_NAME: ${{ env.MODE == 'sdk-test' && 'NOT-FOR-APPSOURCE-sdk-test' || 'release-candidate' }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import {createHash} from 'node:crypto';
+          const report=JSON.parse(fs.readFileSync('dist/SDK_BUILD_REPORT.json'));
+          if(report.testBuild !== (process.env.MODE === 'sdk-test'))throw Error('Wrong build mode');
+          if(path.basename(report.finalFile)!==report.finalFile || !report.finalFile.endsWith('.pbiviz'))throw Error('Unsafe artifact path');
+          const bytes=fs.readFileSync(path.join('dist',report.finalFile));
+          if(createHash('sha256').update(bytes).digest('hex')!==report.finalSHA256)throw Error('Artifact checksum mismatch');
+          fs.mkdirSync('build-logs/candidate',{recursive:true});
+          fs.writeFileSync(path.join('build-logs/candidate',report.finalFile),bytes);
+          fs.copyFileSync('dist/SDK_BUILD_REPORT.json','build-logs/candidate/SDK_BUILD_REPORT.json');
+          JS
+      - name: Upload diagnostics and exact candidate
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ${{ env.MODE == 'sdk-test' && 'NOT-FOR-APPSOURCE-sdk-test' || 'certification-evidence' }}
+          path: build-logs/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Keep unresolved diagnostics red
+        if: always() && steps.diagnostics.outcome != 'success'
+        run: exit 1

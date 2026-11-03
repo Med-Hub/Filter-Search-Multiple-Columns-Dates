@@ -1,6 +1,6 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const path=require('node:path');
 const root=path.resolve(__dirname,'..');const load=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
-test('API versions are aligned in the FieldFind manifest and dependencies',()=>{assert.equal(load('pbiviz.json').apiVersion,load('package.json').dependencies['powerbi-visuals-api']);});
+test('API versions are aligned in the FieldFind manifest and dependencies',()=>{assert.equal(load('pbiviz.json').apiVersion,load('package.json').dependencies['powerbi-visuals-api'].split('.').slice(0,2).join('.')+'.0');});
 test('The visual has its own stable identity',()=>{const v=load('pbiviz.json').visual;assert.match(v.guid,/^fieldFindScope/);assert.notEqual(v.guid,'textSearchSlicerF85E2E78BE4A4D7D9F99ED75B5D71C85');});
 test('No external privileges or scripts are requested',()=>{assert.deepEqual(load('capabilities.json').privileges,[]);assert.equal(load('pbiviz.json').externalJS,null);});
 test('Data mapping uses a window, not a misleading truncated TopN',()=>{const rows=load('capabilities.json').dataViewMappings[0].table.rows;assert.equal(rows.dataReductionAlgorithm.window.count,1000);assert.equal(rows.select.length,3);});

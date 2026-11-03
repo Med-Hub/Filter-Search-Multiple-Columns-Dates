@@ -1,18 +1,16 @@
-> **Update 15 October 2026:** use [TOOLCHAIN_0.6.2.md](TOOLCHAIN_0.6.2.md) and [BUILD_KIT_README.md](BUILD_KIT_README.md) for current status. API/UUID lock resolution has progressed, but installed validation and braces remediation are still blocked. Earlier instructions below are historical.
+# Remaining release sequence — configured 1.0.1
 
-# Remaining release sequence
+The real Service ID, dependency/API repair and automated build gates have been completed in the recorded candidate. Do not repeat initial account setup, reconfigure the ID or upgrade dependencies without a separate reason. The offer remains unpublished and actual Power BI host/license acceptance is pending.
 
-The order below deliberately does not ask you to upload the test package.
+1. Use the prepared English listing, original 300 × 300 logo and product documents in docs/product/. Support contact and publisher identity are confirmed; Standard Contract is the selected route. The Standard Contract, listing text, logo and support/privacy links are saved in the draft. Zoho DPA request is initiated; complete signature and verify transfer safeguards before activating the notice. Preserve upstream notices. See CERTIFICATION_STATUS.md for the master record.
+2. Prepare the new offer's private licensing test arrangement with a test tenant and user. A configured ID is not an assigned license. Do not mark simulated responses as real entitlement validation.
+3. Build the exact candidate with `npm ci` and `npm run package`, retain its final SDK report, and run `python3 scripts/test-release-smoke.py`. Every changed package needs its own evidence.
+4. Run Desktop/Service, assigned/unassigned license, RLS, exports, field changes, refresh, multiple-instance and bookmark checks. Use Microsoft's prescribed sample dataset alongside the 19 synthetic scenarios. Fill `HOST_ACCEPTANCE_CHECKLIST.md` with observations and exact package hashes.
+5. Create a public offline `.pbix` containing the same visual version and synthetic data, with a final Hints/Setup page and license disclosure. Capture accurate store screenshots from the validated host experience.
+6. Export clean source with `node scripts/export-certification.mjs NEW_DIRECTORY`. Freeze a lowercase `certification` branch at the source corresponding to the final package only after validation and review. Exclude generated dependencies, credentials and private reports.
+7. Review the final offer and submission evidence with the owner. Public publication and certification submission are separate actions; Microsoft decides certification approval.
 
-1. On a connected development machine, inspect `config/toolchain-targets.json` against current npm releases. Run `npm run upgrade:api`. It resolves the new package/lock in a temporary directory and only updates the real manifests on success; backups are retained.
-2. Resolve the actual full dependency audit, including development packages. Do not use `npm audit fix --force`, suppress the braces advisory or override UUID's major version without compatibility tests. The present braces advisory has no published patched release; raise the specific SDK dependency-chain problem with the maintainer/Microsoft when a supported fix is unavailable.
-3. Run `npm ci`, `npm run eslint`, `npm run typecheck`, `npm test`, `npm run check:security`, and a full `npm audit`. These are release gates, not optional documentation. Inspect any new findings and retain command exit codes/logs.
-4. Configure the real Date Filter Pro Service ID using the existing `configure:licensing` command. This is the generated service identifier, not `filter-search` or `date-filter-pro`. Never commit a synthetic test ID as the production value.
-5. Run `npm run package`. It invokes the Microsoft SDK, includes its certification audit, and applies the explicit vendor-only DOM hardening transform. The SDK report records the final transformed filename/checksum. Only that final file is a candidate; the raw SDK intermediate is not the intended release artifact.
-6. Rerun browser tests against that exact SDK output, then test Desktop/Service, purchase/assignment and unlicensed access, exports, field changes, report refreshes, multiple instances, and the public sample report. Do not mark simulated licensing as real licence validation. Use Microsoft's specified sample test dataset in addition to synthetic cases.
-7. Build a public offline `.pbix` containing the matching visual and synthetic records, including the unique-record-key example. Finalise the selected third icon/name, screenshots and support/privacy/EULA pages.
-8. Export a clean source folder with `node scripts/export-certification.mjs /path/to/review-folder`. Place ONLY that source folder in the review repository. Create/freeze lowercase branch `certification` at the exact release commit when it really matches the final package. Do not put node_modules, .tmp, dist, offline vendor factories, historical applications or credentials in the branch. Keep reviewer access separate from source code and this chat.
-9. Submit the final offer/certification request. Microsoft reviews the code and decides approval; local checks do not grant the badge.
+References: [licensing test process](https://learn.microsoft.com/en-us/power-bi/developer/visuals/licensing-api#test-a-licensed-visual), [sample package requirements](https://learn.microsoft.com/en-us/partner-center/marketplace-offers/power-bi-visual-technical-configuration).
 
 ## Manual evidence record (fill with actual observations)
 
@@ -28,7 +26,3 @@ The order below deliberately does not ask you to upload the test package.
 | Rendering completion, exports and no browser-console errors | Not yet run | | | |
 | Service reader/edit mode, security roles and relationships | Not yet run | | | |
 | Microsoft's sample dataset and matching offline sample .pbix | Not yet run | | | |
-
-## Preparation revision 2
-
-See BUILD_KIT_README.md for the new manual cloud workflow, exact-result sample and independent diagnostics collector. These were prepared locally; the workflow has not run remotely.

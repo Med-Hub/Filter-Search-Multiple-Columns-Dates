@@ -4,12 +4,12 @@
     "displayName": "Filter & Search \u2013 Multiple Columns & Dates",
     "guid": "fieldFindScope6F2E2BC419F64B839AFD02C06EFD2148",
     "visualClassName": "Visual",
-    "version": "0.6.2.0",
-    "description": "Free multi-column text and numeric search with paid date filtering. Licensing test build: Date Filter Pro Service ID is not configured. Not for AppSource submission.",
-    "supportUrl": "https://veiligstarten.nl",
+    "version": "1.0.1.0",
+    "description": "Search text and numbers across columns. Add licensed date filtering with Date Filter Pro.",
+    "supportUrl": "https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates/blob/fix/0.6.2-build-validation/docs/product/SUPPORT.md",
     "gitHubUrl": "https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates"
   },
-  "apiVersion": "5.11.1",
+  "apiVersion": "5.11.0",
   "author": {
     "name": "Veilig Starten",
     "email": "mmohsine@veiligstarten.nl"

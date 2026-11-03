@@ -1,54 +1,41 @@
-# Filter & Search — certification work, revision 3
+# Build kit — configured 1.0.1 candidate
 
-**15 October 2026. Source candidate 0.6.2. Not ready for submission.**
+The real Date Filter Pro Service ID is configured. API package 5.11.1 exports host API 5.11.0, which the manifest and installed checks use. Dependencies are locked and compatibility/security checks passed in the recorded build. This does not guarantee future audit results or real-host acceptance.
 
-Read `TOOLCHAIN_0.6.2.md` for exact changes, package-registry provenance and remaining blockers. Read `GITHUB_SETUP.md` for the supplied repository destination and optional Git-bundle handoff.
+## Local validation
 
-## Current state
-
-The API 5.11.1 dependency and targeted SockJS/UUID 11.1.1 override are resolved in a real npm-generated lockfile. This is NOT proof of installed API compatibility, a full audit, successful Microsoft lint or an SDK build. The braces security issue and real paid plan Service ID remain unresolved. Design, stylesheet, data roles and search behavior were not changed.
-
-The last installable visual remains **0.6.1 Hardening Test**, with paid dates locked. No 0.6.2 binary is included or claimed built.
-
-## Commands on a connected development machine
+On a clean checkout, run `node scripts/verify-source.mjs` before installing or generating files. Use the Node version in `.nvmrc`.
 
 ```sh
 npm ci
 npm run check:installed
-npm run eslint
-npm run typecheck
-npm test
-npm audit --include=dev --audit-level=moderate
+npm run package
 ```
 
-For independent checks with logs, use `npm run check:connected`. It does not automatically fix dependencies or change the Service ID. It exits nonzero on failed/skipped release gates.
+`npm run package` checks licensing configuration, metadata, installed compatibility, certification precheck, lint, typechecking, tests and full audit before SDK packaging. The final package and SHA-256 are recorded in `dist/SDK_BUILD_REPORT.json`. Use that exact final file, not an SDK intermediate.
 
-For explicit engineering compilation before the release gates can pass:
+For an independent logged check, run `npm run check:connected`. It performs a fresh locked install and keeps failed checks visible. `check:offline` is incomplete evidence and deliberately exits nonzero.
+
+## Exact-package browser smoke
+
+Install the test dependencies and browser in your Python environment:
 
 ```sh
-npm run package:sdk:test
+python3 -m pip install playwright==1.64.1
+python3 -m playwright install chromium
+python3 scripts/test-release-smoke.py
 ```
 
-This still requires installed compatibility, lint, typecheck and tests. Any output is named `Filter_Search_0.6.2_NOT_FOR_APPSOURCE_Test.pbiviz`. It is NOT a security clearance or certified output. The release command `npm run package` retains full security and licence checks and does not fall back to this path.
+An explicit package path may be supplied. The runner keeps packaged application code intact, simulates the host and assigned/unassigned license responses, and saves evidence under `build-logs/package-smoke`. This is not Desktop, Service or real license-assignment validation.
 
-## Cloud workflow
+## GitHub checks
 
-Manual modes: **diagnose**, **sdk-test**, **release**. Use **resolve_api=false** for this version. No cloud run or remote push has happened in this session. Mode `sdk-test` keeps failed audit/licensing diagnostics visible while allowing a separate clearly labelled engineering compile. Release mode requires the frozen `certification` branch and all checks.
+Pull requests to main automatically run diagnostics, `package:sdk:test`, exact-package Chromium smoke and verified artifact upload. Failed diagnostics prevent packaging. The artifact is marked `NOT-FOR-APPSOURCE-sdk-test` and is not a release submission.
 
-The prepared cloud workflow uses only the repository's source and public package downloads. It has read-only repository permissions, no secret inputs, no marketplace publication, and no user/employer report data.
+Manual modes remain `diagnose`, `sdk-test`, and `release`. Keep `resolve_api=false` for this reviewed version. Release mode additionally requires the exact lowercase `certification` branch. The workflow has read-only repository permissions and does not publish offers or grant licenses. [Verified run 41242898447](https://github.com/Med-Hub/Filter-Search-Multiple-Columns-Dates/actions/runs/41242898447) passed; inspect later runs for subsequent changes.
 
-## Local offline evidence
+## Source and host handoff
 
-`npm run check:offline` records checks that can run here; it must not be treated as a complete release check. It deliberately reports missing SDK/lint/audit/licensing prerequisites. Strict core TypeScript compilation is not full application SDK typechecking.
+`npm run export:certification -- NEW_DIRECTORY` produces a clean source export with a complete checksum inventory. Exports exclude dependencies, build output and logs. A clean export is not a certification award or a frozen branch.
 
-The exact-package smoke runner can check an existing `.pbiviz` in a sandbox using a simulated host; it never rewrites the production Service ID. This is not a real Power BI report or paid purchase test. Use the full UI/licensing suites and real Desktop/Service test checklist for a future release candidate.
-
-## Pending external inputs
-
-The repository link is now known and recorded. The active connection lacks write access, so source has not been uploaded remotely. The actual generated Microsoft Service ID remains missing. Microsoft account/domain verification can proceed separately.
-
-Synthetic test records and 19 expected-result scenarios are in `sample/release-kit`. They are not a finished `.pbix`; create the matching report in Power BI Desktop with the final submitted visual.
-
-## Source export
-
-`npm run export:certification -- NEW_DIRECTORY` produces a clean draft tree with the entire source inventory. Run `node scripts/verify-source.mjs` before installing/building to detect accidental missing files. Generated output, historical bundles, vendor factories, node_modules and logs are excluded. A clean export is not a certification award.
+Use `sample/release-kit` and `HOST_ACCEPTANCE_CHECKLIST.md` for actual host testing. The matching offline sample PBIX, listing assets and final release review are still outstanding.

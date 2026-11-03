@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" role="img" aria-labelledby="title desc">
+<title id="title">Filter &amp; Search</title><desc id="desc">Three blue data columns inside a search lens on a midnight blue square.</desc>
+<rect width="300" height="300" rx="58" fill="#142D4E"/>
+<circle cx="130" cy="127" r="72" fill="none" stroke="#F7FBFF" stroke-width="18"/>
+<path d="M183 181 L238 236" fill="none" stroke="#F7FBFF" stroke-width="24" stroke-linecap="round"/>
+<rect x="92" y="115" width="18" height="45" rx="5" fill="#118DFF"/>
+<rect x="121" y="91" width="18" height="69" rx="5" fill="#118DFF"/>
+<rect x="150" y="103" width="18" height="57" rx="5" fill="#118DFF"/>
+</svg>

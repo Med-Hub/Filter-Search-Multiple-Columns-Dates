@@ -2,6 +2,7 @@
  * directory first. A failed network request leaves the project untouched.
  * No invented integrity hashes or in-place hand-edited dependency versions.
  */
+import {hostApiVersion} from './build-contract.mjs';
 import {readFile,writeFile,mkdtemp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
@@ -25,7 +26,7 @@ try{
  if(pkg.dependencies?.['powerbi-visuals-api']!==target.apiVersion||entry?.version!==target.apiVersion||!entry.integrity)throw Error('Resolved API lock did not match the requested exact version.');
  const current=await Promise.all(files.map(p=>readFile(path.join(root,p),'utf8')));
  if(current.some((v,i)=>v!==before[i]))throw Error('Project files changed while resolving the API; refusing to overwrite.');
- const visual=JSON.parse(before[2]);visual.apiVersion=target.apiVersion;
+ const visual=JSON.parse(before[2]);visual.apiVersion=hostApiVersion(target.apiVersion);
  // Synchronous writes are deliberately avoided during network work; backups
  // allow recovery even from a filesystem failure while committing these files.
  const backup=path.join(root,'build-logs','api-upgrade-backup');
