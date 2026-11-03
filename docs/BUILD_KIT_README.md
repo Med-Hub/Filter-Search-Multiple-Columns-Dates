@@ -1,4 +1,4 @@
-# Build kit — configured 1.0.0 candidate
+# Build kit — configured 1.0.1 candidate
 
 The real Date Filter Pro Service ID is configured. API package 5.11.1 exports host API 5.11.0, which the manifest and installed checks use. Dependencies are locked and compatibility/security checks passed in the recorded build. This does not guarantee future audit results or real-host acceptance.
 

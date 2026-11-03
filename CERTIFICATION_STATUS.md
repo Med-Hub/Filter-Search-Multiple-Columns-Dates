@@ -1,6 +1,6 @@
 # Filter & Search — master project record
 
-Last updated: 2 November 2026. This is the ongoing project record. Keep it updated after each meaningful change and preserve the evidence links below. It supersedes the short configured-candidate status previously held in this file.
+Last updated: 3 November 2026. This is the ongoing project record. Keep it updated after each meaningful change and preserve the evidence links below. It supersedes the short configured-candidate status previously held in this file.
 
 ## Scope and current phase
 
@@ -85,9 +85,17 @@ A finished sample PBIX cannot be honestly produced or accepted on this Mac witho
 - Pack includes SDK report, build/browser logs, source inventory, current test kit and account-save screenshots. Prior 0.6.2 output is historical and must not be uploaded.
 - Real Desktop/Service tests, live entitlement tests, final PBIX and genuine report screenshots remain unrun/uncreated. No Microsoft certification or public release is claimed.
 
+## 3 November — Zoho verification follow-up
+
+Identity verification succeeded. Zoho Accounts → Privacy still shows Pending Signatures for VirtualOffice. No signing document opened from that entry; no invitation was found in the checked support mailbox, and Spam was empty. Zoho’s [account guide](https://help.zoho.com/portal/en/kb/accounts/manage-your-zoho-account/articles/privacy) explains that Legal reviews the request before Zoho Sign emails the agreement. No further login or duplicate request is needed now. Review the actual agreement and transfer safeguards when delivered; no signature or policy activation is claimed. The separate organization contact profile displays Morocco for the Eindhoven address, whereas the DPA request specified Netherlands. Check the country on the actual agreement before signing. The prepared Power BI tests can proceed independently.
+
 ## Next steps, in order
 
 1. Complete the pending Zoho agreement signature and verify applicable transfer safeguards; activate the privacy notice only when that evidence exists.
 2. Use the current 1.0.0 package for Power BI Desktop/Service and real licensing tests. Assemble the matching offline PBIX, record results and capture genuine screenshots. Set up Microsoft’s prescribed private licensing test arrangement as part of that session; do not assume a configured Service ID grants a license.
 3. Fix any test failures, upload the final matching PBIX/screenshots/package, and freeze the exact tested source.
 4. Review final release gates and submit only after authorization. The offer remains unpublished and PR #1 remains draft/unmerged.
+
+## Blue logo update
+
+The owner reports that the supplied 1.0.0 file worked correctly in their test. The host, test cases and licensing conditions were not specified. Version 1.0.1.0 gives the revised package a distinct identity for testing. Its logo uses #118DFF for the three data columns, the first data color in Microsoft’s Power BI theme example. Source: https://github.com/microsoft/skills-for-fabric/blob/main/skills/powerbi-report-cli/references/authoring/theming.md

@@ -1,6 +1,6 @@
 # Filter & Search – Multiple Columns & Dates
 
-Version **1.0.0** (visual 1.0.0.0). Publisher: Veilig Starten.
+Version **1.0.1** (visual 1.0.1.0). Publisher: Veilig Starten.
 
 Free multi-column text/numeric search with Microsoft-licensed Date Filter Pro. The real Service ID is configured. The product remains a **candidate awaiting Power BI Desktop/Service and real-license acceptance**, not a Microsoft-certified release.
 
