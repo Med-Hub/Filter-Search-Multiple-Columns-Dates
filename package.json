@@ -1,7 +1,7 @@
 {
   "name": "fieldfind-scope",
-  "description": "Filter & Search — free multi-column text/numeric search; Microsoft-licensed Date Filter Pro. Licensing integration test pending Service ID.",
-  "version": "0.6.2",
+  "description": "Search text and numbers across columns. Add licensed date filtering with Date Filter Pro.",
+  "version": "1.0.1",
   "private": true,
   "license": "MIT",
   "engines": {
@@ -56,6 +56,7 @@
   "overrides": {
     "sockjs@0.3.24": {
       "uuid": "11.1.1"
-    }
+    },
+    "minimatch@10.2.6": "11.0.1"
   }
 }

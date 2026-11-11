@@ -1,4 +1,5 @@
 /** Build-time validation only. Does not grant Microsoft certification or runtime access. */
+import {hostApiVersion} from './build-contract.mjs';
 const sorted = value => Array.isArray(value) ? value.map(sorted) : value && typeof value === 'object'
     ? Object.fromEntries(Object.keys(value).sort().map(key => [key, sorted(value[key])])) : value;
 export const equivalent = (a, b) => JSON.stringify(sorted(a)) === JSON.stringify(sorted(b));
@@ -16,19 +17,19 @@ export function knownDependencyFindings(lock) {
         if (!parsed) { findings.push({ package: name, version: entry?.version ?? null, location, advisory: null, reason: 'Cannot safely assess this dependency version.' }); continue; }
         const [major, minor, patch] = parsed.parts;
         const affected = name === 'braces'
-            ? compareParts(parsed.parts, [3, 0, 3]) <= 0
+            ? compareParts(parsed.parts, [3, 0, 3]) < 0 || (compareParts(parsed.parts, [3, 0, 3]) === 0 && parsed.prerelease)
             : compareParts(parsed.parts, [11, 1, 1]) < 0 ||
               ((major === 11 && minor === 1 && patch === 1) && parsed.prerelease) ||
               ((major === 12 || major === 13) && minor === 0 && (patch === 0 || (patch === 1 && parsed.prerelease)));
         if (affected) findings.push({ package: name, version: entry.version, location,
-            advisory: name === 'braces' ? 'GHSA-vfj7-8cjw-p6xm' : 'GHSA-w5hq-g745-h8pq',
-            reason: name === 'braces' ? 'Affected range <=3.0.3; no patched release in the advisory reviewed on 2026-10-14.' : 'Version falls within a reviewed affected range.' });
+            advisory: name === 'braces' ? 'GHSA-grv7-fg5c-xmjg' : 'GHSA-w5hq-g745-h8pq',
+            reason: name === 'braces' ? 'Affected range <3.0.3. The separate stack-exhaustion advisory was withdrawn on 2026-10-23; full live audit remains required.' : 'Version falls within a reviewed affected range.' });
     }
     return findings;
 }
 export function inspectCertificationInputs(pkg, visual, lock, targets) {
     const blockers = [];
-    if (visual?.apiVersion !== targets?.apiVersion || pkg?.dependencies?.['powerbi-visuals-api'] !== targets?.apiVersion)
+    if (visual?.apiVersion !== hostApiVersion(targets?.apiVersion) || pkg?.dependencies?.['powerbi-visuals-api'] !== targets?.apiVersion)
         blockers.push('The reviewed API migration to ' + targets?.apiVersion + ' is not complete.');
     if (targets?.toolsVersion && pkg?.devDependencies?.['powerbi-visuals-tools'] !== targets.toolsVersion)
         blockers.push('The SDK tools version differs from the reviewed target.');

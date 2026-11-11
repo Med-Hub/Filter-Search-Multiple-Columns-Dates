@@ -45,7 +45,8 @@ def check(name, condition):
     save()
 try:
     with tempfile.TemporaryDirectory(prefix='filter-search-smoke-') as temporary, sync_playwright() as pw:
-        chromium = os.environ.get('FF_CHROMIUM') or ('/usr/bin/chromium' if Path('/usr/bin/chromium').exists() else None)
+        # Use Playwright's installed browser by default, consistently on CI/local.
+        chromium = os.environ.get('FF_CHROMIUM') or None
         browser = pw.chromium.launch(executable_path=chromium, headless=True,
                                      args=['--no-sandbox', '--disable-dev-shm-usage'])
         for licence_mode in (['unlicensed', 'licensed-simulated'] if plan else ['unconfigured']):
@@ -62,10 +63,12 @@ try:
             page.on('pageerror', lambda error: errors.append(str(error)))
             page.on('console', lambda message: errors.append(message.text) if message.type == 'error' else None)
             page.on('request', lambda request: requests.append(request.url) if request.url.startswith(('http:', 'https:')) else None)
-            page.set_content(html.read_text())
+            # The opaque srcdoc frame can delay the outer load event. Wait for
+            # DOM construction, then prove the packaged visual actually renders.
+            page.set_content(html.read_text(), wait_until='domcontentloaded', timeout=30000)
             frame = page.frame_locator('#visualFrame')
             query = frame.locator('.ff-query')
-            query.wait_for()
+            query.wait_for(state='visible', timeout=30000)
             real_frame = page.locator('#visualFrame').element_handle().content_frame()
             execute = real_frame.evaluate
             page.wait_for_timeout(120)

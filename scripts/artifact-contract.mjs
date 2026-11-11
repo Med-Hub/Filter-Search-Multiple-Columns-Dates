@@ -15,6 +15,7 @@ export function resourcePath(outer) {
 }
 export function validateArtifact({outer,resource,manifest,capabilities,packageVersion,expectedIcon}) {
     resourcePath(outer);
+    requireThat(/^[1-9]\d*\.(0|[1-9]\d*)\.(0|[1-9]\d*)\.0$/.test(manifest?.visual?.version||''),'Marketplace visual version must use a nonzero major version without leading zeros.');
     requireThat(manifest?.visual?.version===packageVersion+'.0','Source package and visual versions differ.');
     requireThat(outer.version===manifest.visual.version,'Outer package version differs from source.');
     requireThat(equivalent(outer.visual,manifest.visual),'Outer visual metadata differs from source.');
